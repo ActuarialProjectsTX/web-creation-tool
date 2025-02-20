@@ -5,28 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Creation Tool</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
-        #feedback { color: green; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 80%;
+            max-width: 500px;
+            height: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <h1>Create Your Website</h1>
+    <h1>Web Creation Tool</h1>
+    <p>Type what you want to create below and click "Generate Website"</p>
     <form id="description-form">
-        <textarea id="description" placeholder="e.g., 'A webpage with a red header and a button'"></textarea>
+        <textarea id="description" placeholder="e.g., 'A webpage with a blue header and a button'" required></textarea>
+        <br>
         <button type="submit">Generate Website</button>
     </form>
     <div id="feedback"></div>
+
     <script>
         document.getElementById('description-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const description = document.getElementById('description').value;
             const feedback = document.getElementById('feedback');
-            feedback.textContent = 'Generating... (Using mock data for now)';
-            // Mock response until API is ready
-            setTimeout(() => {
-                feedback.textContent = 'Website generated! Refresh https://<your-username>.github.io/web-creation-tool/';
-            }, 1000);
+            feedback.textContent = 'Generating...';
+
+            try {
+                const response = await fetch('http://localhost:3000/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description })
+                });
+                if (response.ok) {
+                    const result = await response.json();
+                    feedback.textContent = result.message + ' Refresh https://<your-username>.github.io/web-creation-tool/';
+                } else {
+                    feedback.textContent = 'Error: Could not connect to the server.';
+                }
+            } catch (error) {
+                feedback.textContent = 'Error: Failed to reach the server. Is it running?';
+            }
         });
     </script>
 </body>
