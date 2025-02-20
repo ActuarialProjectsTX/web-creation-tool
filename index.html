@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Creation Tool</title>
+</head>
+<body>
+  <h1>Create Your Website</h1>
+  <form id="description-form">
+    <textarea id="description" placeholder="Describe your website (e.g., 'a page with a blue header and a button')"></textarea>
+    <button type="submit">Generate Website</button>
+  </form>
+  <div id="feedback"></div>
+
+  <script>
+    document.getElementById('description-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const description = document.getElementById('description').value;
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = 'Generating...';
+
+      const response = await fetch('YOUR_BACKEND_URL', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description })
+      });
+      const result = await response.json();
+      feedback.textContent = result.message || 'Error occurred.';
+    });
+  </script>
+</body>
+</html>
