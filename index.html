@@ -59,14 +59,14 @@
             feedback.textContent = 'Generating...';
 
             try {
-                const response = await fetch('http://localhost:3000/generate', {
+                const response = await fetch('https://web-creation-backend-b0qfodj9z-funprojectstxs-projects.vercel.app', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ description })
                 });
                 if (response.ok) {
                     const result = await response.json();
-                    feedback.textContent = result.message + ' Refresh https://<your-username>.github.io/web-creation-tool/';
+                    feedback.textContent = result.message + ' Refresh https://ActuarialProjectsTX.github.io/web-creation-tool/';
                 } else {
                     feedback.textContent = 'Error: Could not connect to the server.';
                 }
