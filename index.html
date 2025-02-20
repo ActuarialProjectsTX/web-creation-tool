@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Web Creation Tool</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Creation Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        #feedback { color: green; }
+    </style>
 </head>
 <body>
-  <h1>Create Your Website</h1>
-  <form id="description-form">
-    <textarea id="description" placeholder="Describe your website (e.g., 'a page with a blue header and a button')"></textarea>
-    <button type="submit">Generate Website</button>
-  </form>
-  <div id="feedback"></div>
-
-  <script>
-    document.getElementById('description-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const description = document.getElementById('description').value;
-      const feedback = document.getElementById('feedback');
-      feedback.textContent = 'Generating...';
-
-      const response = await fetch('YOUR_BACKEND_URL', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description })
-      });
-      const result = await response.json();
-      feedback.textContent = result.message || 'Error occurred.';
-    });
-  </script>
+    <h1>Create Your Website</h1>
+    <form id="description-form">
+        <textarea id="description" placeholder="e.g., 'A webpage with a red header and a button'"></textarea>
+        <button type="submit">Generate Website</button>
+    </form>
+    <div id="feedback"></div>
+    <script>
+        document.getElementById('description-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const description = document.getElementById('description').value;
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = 'Generating... (Using mock data for now)';
+            // Mock response until API is ready
+            setTimeout(() => {
+                feedback.textContent = 'Website generated! Refresh https://<your-username>.github.io/web-creation-tool/';
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
