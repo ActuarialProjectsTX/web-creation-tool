@@ -1,3 +1,3 @@
 
-console.log("Website generated with description: Test page");
+console.log("Website generated with description: test");
           
